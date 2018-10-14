@@ -1,0 +1,80 @@
+#container {
+  width: 600px;
+  margin: 0 auto;
+  word-wrap: break-word;
+  .index {
+    .site-title {
+      text-align: center;
+      margin: 10% 0px 10% 0px;
+      font-size: 48px;
+    }
+    .post {
+      margin: 0px 0px 6% 0px;
+      .post-title {
+        font-size: 26px;
+        margin: 0px;
+      }
+      .post-created-at {
+        font-size: 12px;
+        display: inline-block;
+        margin: 0px 0px 3% 0px;
+      }
+      .post-body {
+        font-size: 16px;
+        margin: 0px 0px 5px 0px;
+      }
+      .read-more {
+        margin: 0px;
+        font-size: 14px;
+        display: inline-block;
+        color: #3d3f44;
+        text-decoration: none;
+        transition: all 300ms 0s ease;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+    .pagination {
+      font-size: 16px;
+      color: #3d3f44;
+      margin: 0px 0px 5% 0px;
+      display: flex;
+      .common {
+        width: 50%;
+        span {
+          transition: all 300ms 0s ease;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+  .detail {
+    .site-title {
+      margin: 8% 0px 5% 0px;
+      font-size: 26px;
+    }
+    .post {
+      .post-created-at {
+        margin: 0px;
+      }
+      .post-title {
+        margin: 0px 0px 25px 0px;
+        font-size: 38px;
+      }
+      .contant {
+        h3 {
+          font-size: 22px;
+        }
+        h1, h2, h3 {
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 5px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+/.bundle
+/public/assets*
+/tmp
+/vendor
+/node_modules
+
+.env.development
+.env.test
+.hanamirc

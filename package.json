@@ -29,8 +29,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode=development",
-    "watch": "webpack --progress --colors --watch --mode=production"
+    "dev": "webpack --mode=development",
+    "watch": "webpack --progress --colors --watch --mode=development"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,7 @@
 import { h } from 'hyperapp';
 import markdownIt from 'markdown-it';
 import {convertDateFormat} from '../utilities/_time'
+import ErrorPage from './error_page';
 
 export default (state, actions, postId) => {
   const md = new markdownIt();
@@ -16,6 +17,8 @@ export default (state, actions, postId) => {
         </article>
       </div>
     );
+  } else if(state.backendApiError) {
+    return(<ErrorPage/>);
   } else {
     actions.getPost(postId);
     return null;

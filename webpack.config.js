@@ -6,6 +6,7 @@ module.exports = {
     path: __dirname + '/public/assets/_fe',
     filename: "bundle.js"
   },
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {

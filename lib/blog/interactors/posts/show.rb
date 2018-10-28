@@ -1,26 +1,26 @@
 require 'hanami/interactor'
 require 'hanami/validations'
 
-module Blog::Interactor
-  class Index
+module Posts
+  class Show
     class Validation
       include Hanami::Validations
 
-      validations do; end
+      validations do
+        required(:id).value(:filled?, format?: /\A[0-9]+\z/)
+      end
     end
 
     include Hanami::Interactor
 
-    expose :posts
+    expose :post
 
     def initialize(params)
       @params = params
     end
 
     def call
-      per_page = @params[:perPage].to_i
-      offset   = (@params[:page].to_i - 1) * per_page
-      @posts   = PostRepository.new.paginate_by(offset: offset, limit: per_page)
+      @post = PostRepository.new.find(@params[:id])
     end
 
     private

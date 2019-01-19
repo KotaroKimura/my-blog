@@ -1,0 +1,69 @@
+body, html {
+  font-family: PT Sans,Helvetica Neue,Arial,Hiragino Kaku Gothic Pro,Meiryo,MS PGothic,sans-serif;
+  color: #3d3f44;
+  background-color: #fff;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 400;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+  word-wrap: break-word;
+  &.post-edit {
+    width: 90%;
+  }
+  .site-title {
+    text-align: center;
+    margin: 60px 0px 0px 0px;
+    font-size: 48px;
+  }
+  .posts {
+    margin: 60px 0px 0px 0px;
+    .post {
+      width: 100%;
+      margin-bottom: 10px;
+      .post-id {
+        width: 5%;
+      }
+      .title {
+        width: 75%;
+      }
+      .edit {
+        width: 10%;
+        a {
+          color: #3d3f44;
+          transition: all 300ms 0s ease;
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+      }
+      .destroy {
+        width: 10%;
+      }
+    }
+  }
+  .create-button {
+    margin-top: 5%;
+    a {
+      color: #3d3f44;
+      transition: all 300ms 0s ease;
+      font-size: 1.2em;
+      display: block;
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+}

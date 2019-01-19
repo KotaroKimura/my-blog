@@ -1,5 +1,6 @@
 /.bundle
 /public/assets*
+/public/upload*
 /tmp
 /vendor
 /node_modules

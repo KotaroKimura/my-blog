@@ -2,25 +2,26 @@ require 'hanami/interactor'
 require 'hanami/validations'
 
 module Posts
-  class Show
+  class GetOne
     class Validation
       include Hanami::Validations
 
       validations do
-        required(:id).value(:filled?, format?: /\A[0-9]+\z/)
+        required(:id) { filled? & str? & format?(/\A[0-9]+\z/) }
       end
     end
 
     include Hanami::Interactor
 
     expose :post
+    expose :images
 
     def initialize(params)
       @params = params
     end
 
     def call
-      @post = PostRepository.new.find(@params[:id])
+      @post = PostRepository.new.find_with_images(@params[:id])
     end
 
     private

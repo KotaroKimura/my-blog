@@ -1,10 +1,14 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'frontend/js/app.js'),
+  entry: {
+    '/public/assets/_fe/web': path.resolve(__dirname, 'frontend/js/web/app.js'),
+    '/public/assets/admin/_fe/admin': path.resolve(__dirname, 'frontend/js/admin/app.js')
+  },
   output: {
-    path: __dirname + '/public/assets/_fe',
-    filename: "bundle.js"
+    path: __dirname,
+    filename: '[name].bundle.js'
   },
   devtool: 'cheap-module-source-map',
   module: {
@@ -15,7 +19,20 @@ module.exports = {
         loader: "babel-loader"
       },
       {
-        test: /\.scss/,
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader'
+          }
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ['css-loader']
+      },
+      {
+        test: /\.scss$/,
         use: [
           'style-loader',
           {
@@ -29,7 +46,14 @@ module.exports = {
             loader: 'sass-loader',
           }
         ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ]
 };

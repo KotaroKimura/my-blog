@@ -1,0 +1,25 @@
+<div class='container'>
+  <%= render partial: 'partials/site_title' %>
+  <div style='text-align: center; color: #ED553B;'><%= flash[:error] %></div>
+  <div class='posts'>
+    <% posts.each do |_p| %>
+      <div class='post table'>
+        <div class='post-id table-cell'><%= "#{_p.id}." %></div>
+        <div class='title table-cell'><%= _p.title %></div>
+        <div class='edit table-cell'>
+          <%= link_to 'edit', routes.edit_post_path(_p.id) %>
+        </div>
+        <div class='destroy table-cell'>
+          <%=
+            form_for :posts, routes.post_path(_p.id), method: :delete do
+              submit 'remove'
+            end
+          %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='create-button'>
+    <%= link_to 'create', '#', { id: 'post-create' } %>
+  </div>
+</div>

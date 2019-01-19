@@ -1,6 +1,6 @@
 import { h } from 'hyperapp';
 import markdownIt from 'markdown-it';
-import {convertDateFormat} from '../utilities/_time'
+import {convertDateFormat} from '../../../utilities/_time'
 import ErrorPage from './error_page';
 
 export default (state, actions, postId) => {

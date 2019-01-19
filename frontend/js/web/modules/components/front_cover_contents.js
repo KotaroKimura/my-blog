@@ -1,7 +1,7 @@
 import { h } from 'hyperapp';
 import { Link } from '@hyperapp/router';
 import removeMd from 'remove-markdown';
-import {convertDateFormat} from '../utilities/_time'
+import {convertDateFormat} from '../../../utilities/_time'
 
 const MAX_BODY_LENGTH = 100;
 

@@ -1,3 +1,5 @@
+echo 'import mavon-editor icons'
+
 if [ -f ../public/assets/vendor/mavon-editor/fontello.eot ]; then
   echo 'exist!!'
 else

@@ -1,1 +1,4 @@
-@import 'front_cover.scss';
+@import './front_cover.scss';
+@import './vendor/markdown-it-container-extension.scss';
+@import '../../../node_modules/highlight.js/styles/github.css';
+@import '../../../node_modules/github-markdown-css/github-markdown.css';

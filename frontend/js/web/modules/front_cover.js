@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { h, app } from 'hyperapp';
-import { Route, location, Redirect } from "@hyperapp/router"
+import { Route, location, Redirect } from "@hyperapp/router";
 
 const perPage = 3;
 

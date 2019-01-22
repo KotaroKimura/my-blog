@@ -1,33 +1,37 @@
 # Blog
 
-Welcome to your new Hanami project!
+Blog application powered by hanami, vue.js and hyperapp.
 
 ## Setup
 
-How to run tests:
-
 ```
-% bundle exec rake
+From root path
+
+# create .env.***
+touch .env.development
+vi .env.development
+
+~~~ write those environment variable
+DATABASE_URL="xxxxxxxxxxx"
+SERVE_STATIC_ASSETS="xxxxxxxxxxx"
+WEB_SESSIONS_SECRET="xxxxxxxxxxx"
+ADMIN_SESSIONS_SECRET="xxxxxxxxxxx"
+ADMIN_BASIC_AUTH_USER="xxxxxxxxxxx"
+ADMIN_BASIC_AUTH_PASSWORD="xxxxxxxxxxx"
+~~~
+
+# bundle ruby gems
+bundle install --path vendor/bundle
+
+# bundle javascript node_modules
+npm install
+
+# migrate db
+HANAMI_ENV=env bundle exec hanami db create
+HANAMI_ENV=env bundle exec hanami db migrate
+
+From root/bin/
+
+# copy icons for markdown editor
+sh init.sh
 ```
-
-How to run the development console:
-
-```
-% bundle exec hanami console
-```
-
-How to run the development server:
-
-```
-% bundle exec hanami server
-```
-
-How to prepare (create and migrate) DB for `development` and `test` environments:
-
-```
-% bundle exec hanami db prepare
-
-% HANAMI_ENV=test bundle exec hanami db prepare
-```
-
-Explore Hanami [guides](http://hanamirb.org/guides/), [API docs](http://docs.hanamirb.org/1.1.1/), or jump in [chat](http://chat.hanamirb.org) for help. Enjoy! 🌸

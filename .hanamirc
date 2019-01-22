@@ -1,0 +1,3 @@
+project=blog
+test=minitest
+template=erb

@@ -1,7 +1,7 @@
 @font-face {
     font-family: fontello;
-    src: url(http://localhost:2300/assets/vendor/mavon-editor/fontello.eot);
-    src: url(http://localhost:2300/assets/vendor/mavon-editor/fontello.eot#iefix) format("embedded-opentype"), url(http://localhost:2300/assets/vendor/mavon-editor/fontello.woff2) format("woff2"), url(http://localhost:2300/assets/vendor/mavon-editor/fontello.woff) format("woff"), url(http://localhost:2300/assets/vendor/mavon-editor/fontello.ttf) format("truetype"), url(http://localhost:2300/assets/vendor/mavon-editor/fontello.svg#fontello) format("svg");
+    src: url(/assets/vendor/mavon-editor/fontello.eot);
+    src: url(/assets/vendor/mavon-editor/fontello.eot#iefix) format("embedded-opentype"), url(/assets/vendor/mavon-editor/fontello.woff2) format("woff2"), url(/assets/vendor/mavon-editor/fontello.woff) format("woff"), url(/assets/vendor/mavon-editor/fontello.ttf) format("truetype"), url(/assets/vendor/mavon-editor/fontello.svg#fontello) format("svg");
     font-weight: 400;
     font-style: normal
 }

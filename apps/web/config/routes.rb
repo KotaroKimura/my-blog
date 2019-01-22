@@ -4,6 +4,5 @@
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
 resources :posts, only: [:index, :show]
-resource :authentication, only: [:show]
 
 root to: 'posts#index'

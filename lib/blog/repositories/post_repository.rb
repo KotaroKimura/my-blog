@@ -3,8 +3,8 @@ class PostRepository < Hanami::Repository
     has_many :images
   end
 
-  def paginate_by(offset: _offset, limit: _limit)
-    posts.order { created_at.desc }.offset(offset).limit(limit).call.collection
+  def paginate_by(offset: _offset, limit: _limit, published_state: 2)
+    posts.where(published_state: published_state).order { created_at.desc }.offset(offset).limit(limit).call.collection
   end
 
   def find_with_images id

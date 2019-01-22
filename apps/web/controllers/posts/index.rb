@@ -1,8 +1,11 @@
 module Web::Controllers::Posts
   class Index
     include Web::Action
+    include Concerns::TokenEmitable
 
-    expose :posts
+    before :set_api_toke
+
+    expose :posts, :api_token
     accept :html, :json
 
     def initialize; end

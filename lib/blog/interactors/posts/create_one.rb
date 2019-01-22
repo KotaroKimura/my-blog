@@ -11,7 +11,7 @@ module Posts
     end
 
     def call
-      @post = PostRepository.new.create(title: 'タイトルを入力してください.', body: '本文を入力してください.')
+      @post = PostRepository.new.create(title: 'タイトルを入力してください.', body: '本文を入力してください.', published_date:  Date.today)
 
       if @post.nil?
         error("Could Not Save.")

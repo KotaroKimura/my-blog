@@ -1,8 +1,11 @@
 module Web::Controllers::Posts
   class Show
     include Web::Action
+    include Concerns::TokenEmitable
 
-    expose :post
+    before :set_api_toke
+
+    expose :post, :api_token
     accept :html, :json
 
     def initialize; end

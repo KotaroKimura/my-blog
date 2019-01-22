@@ -8,13 +8,26 @@ module Admin
 
         def render_json
           response_json = {
-            id:         post.id,
-            title:      post.title,
-            body:       post.body,
-            created_at: post.created_at,
-            updated_at: post.updated_at,
-            images:     []
+            id:              post.id,
+            title:           post.title,
+            body:            post.body,
+            published_state: {},
+            published_date:  post.published_date,
+            created_at:      post.created_at,
+            updated_at:      post.updated_at,
+            images:          []
           }
+          # push published_state data
+          response_json[:published_state].tap do |j|
+            j[:selected] = post.published_state
+            j[:options]  = [
+              { text: '下書き', value: 0 },
+              { text: '公開待ち', value: 1 },
+              { text: '公開済み', value: 2 },
+            ]
+          end
+
+          # push images data
           post.images.each do |image|
             response_json[:images] << [
               image.name,

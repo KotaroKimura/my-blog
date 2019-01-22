@@ -1,11 +1,22 @@
 <template>
   <div id='post-edit-container'>
-    <div class='title-and-message-box-container'>
+    <div class='title-and-published-conditions-container'>
       <input class='title' type='text' v-model="attributes.title" placeholder="タイトルを入力してください.">
-      <div class='message-box' v-if="message.text" v-bind:class="message.color">{{message.text}}</div>
+      <div class="published-conditions-container">
+        <input class='published-date' type="date" v-model="attributes.publishedDate" v-if="isPublishWaiting">
+        <div class='published-date-else' v-else></div>
+        <select class='published-state' v-model="attributes.publishedState.selected">
+          <option v-for="option in attributes.publishedState.options" v-bind:value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
     </div>
     <mavon-editor ref="md" v-model="attributes.body" language='en' :toolbars="toolbars" :boxShadow="false" placeholder='本文を入力してください.' @imgAdd="$imgAdd" @imgDel="$imgDel"></mavon-editor>
-    <button class='post-bottun' type='submit' v-on:click="update()">保存する</button>
+    <div class='submit-and-message-box-container'>
+      <button class='post-bottun' type='submit' v-on:click="update()">保存する</button>
+      <div class='message-box' v-if="message.text" v-bind:class="message.color">{{message.text}}</div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +25,7 @@
   import { mavonEditor } from 'mavon-editor'
   import { forEach } from 'lodash/lodash'
   import { csrfToken } from '../../../utilities/_csrf_token'
+  import { getNowYMD } from '../../../utilities/_date'
 
   export default {
     name: 'editor',
@@ -29,6 +41,13 @@
         attributes: {
           title: '',
           body: '',
+          publishedState: {
+            selected: 0,
+            options: [
+              { text: '---', value: 0 }
+            ]
+          },
+          publishedDate: ''
         },
         toolbars: {
           bold: true,
@@ -63,12 +82,23 @@
     created() {
       this.load()
     },
+    watch: {
+      'attributes.publishedDate': function(val) {
+        console.log(val)
+      }
+    },
     computed: {
       postId() {
         return window.location.pathname.match(/posts\/(\d+)\/edit/)[1]
       },
       _md() {
         return this.$refs.md
+      },
+      isPublishWaiting() {
+        return this.attributes.publishedState.selected === 1
+      },
+      isPublishNow() {
+        return this.attributes.publishedState.selected === 2
       }
     },
     methods: {
@@ -80,11 +110,19 @@
         setTimeout(()=> { this.message.text = ''; this.message.color = ''; }, 3000)
         return null
       },
+      optimizePublishedDate() {
+        if (this.isPublishNow) {
+          this.attributes.publishedDate = getNowYMD()
+        }
+        return null
+      },
       load() {
         axios.get(`/admin/posts/${this.postId}/edit`).then(res => {
-          const _this           = this
-          this.attributes.body  = res.data.body
-          this.attributes.title = res.data.title
+          const _this                    = this
+          this.attributes.body           = res.data.body
+          this.attributes.title          = res.data.title
+          this.attributes.publishedState = res.data.published_state
+          this.attributes.publishedDate  = res.data.published_date.split(' ')[0]
 
           forEach(res.data.images, function(image, index) {
             const _function = {
@@ -110,6 +148,7 @@
         })
       },
       update() {
+        this.optimizePublishedDate()
         axios.patch(`/admin/posts/${this.postId}?_csrf_token=${csrfToken()}`, this.attributes).then(res => {
           this.generateMessageBox(res.data)
           this.clearMessageBox()
@@ -151,7 +190,7 @@
         }).catch(e => {
           this.generateMessageBox(e.response.data, 'red')
         })
-      },
+      }
     }
   }
 </script>
@@ -159,24 +198,27 @@
 <style lang="scss" scoped>
   #post-edit-container {
     width: 100%;
-    .title-and-message-box-container {
+    .title-and-published-conditions-container {
       display: flex;
+      margin: 1rem 0;
       .title {
-        width: 40%;
+        width: 53%;
         height: 2rem;
-        margin: 1rem 0;
         font-size: 1rem;
         padding: 0 1%;
       }
-      .message-box {
-        width: 59%;
-        text-align: right;
-        margin: 2% 0 0 0;
-        &.green {
-          color: #4FB99F;
+      .published-conditions-container {
+        margin: 0 0 0 auto;
+        .published-date, .published-date-else {
+          height: 2rem;
         }
-        &.red {
-          color: #ED553B;
+        .published-date-else {
+          height: 1.4rem;
+          display: inline-block;
+        }
+        .published-state {
+          vertical-align: middle;
+          margin-left: 1rem;
         }
       }
     }
@@ -184,15 +226,27 @@
       max-height: 475px;
       min-height: 475px;
     }
-    .post-bottun {
-      width: 8%;
-      padding: 1% 0;
-      margin: 2% 0 0 0;
-      cursor: pointer;
-      border-radius: 3px;
-      font-size: 0.7em;
-      &:focus {
-        outline: none;
+    .submit-and-message-box-container {
+      display: flex;
+      .post-bottun {
+        width: 8%;
+        padding: 1% 0;
+        margin: 2% 0 0 0;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 0.7em;
+        &:focus {
+          outline: none;
+        }
+      }
+      .message-box {
+        margin: 3% 0 0 2%;
+        &.green {
+          color: #4FB99F;
+        }
+        &.red {
+          color: #ED553B;
+        }
       }
     }
   }

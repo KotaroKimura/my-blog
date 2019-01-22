@@ -4,7 +4,7 @@ require 'hanami/validations'
 module Posts
   class DestroyOne
     include Hanami::Interactor
-    include Concerns::Validatable
+    include ::Blog::Interactors::Concerns::Validatable
 
     Validation.class_eval do
       validations do

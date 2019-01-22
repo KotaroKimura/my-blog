@@ -44,19 +44,15 @@ const actions = {
 
   // call backend API
   getPosts: () => (state, actions) => {
-    axios.get('/authentication').then(res => {
-      axios.get(`/posts?page=${state.currentPage}&perPage=${perPage}`, { headers: { 'Backend-Api-Token': res.data.api_token } }).then(_res => {
-        actions.setPosts(_res.data);
-        _res.data.length < perPage ? actions.chageLastPage(true) : actions.chageLastPage(false);
-      }).catch(_e => { actions.errorBackendApi(); })
-    }).catch(e => { actions.errorBackendApi(); });
+    axios.get(`/posts?page=${state.currentPage}&perPage=${perPage}`, { headers: { 'Backend-Api-Token': _method.actions.getBackgroundApiToken() } }).then(_res => {
+      actions.setPosts(_res.data);
+      _res.data.length < perPage ? actions.chageLastPage(true) : actions.chageLastPage(false);
+    }).catch(_e => { actions.errorBackendApi(); });
   },
   getPost: (post_id) => (state, actions) => {
-    axios.get('/authentication').then(res => {
-      axios.get(`/posts/${post_id}`, { headers: { 'Backend-Api-Token': res.data.api_token } }).then(res => {
-        actions.setPost(res.data);
-      }).catch(_e => { actions.errorBackendApi(); })
-    }).catch(e => { actions.errorBackendApi(); });
+    axios.get(`/posts/${post_id}`, { headers: { 'Backend-Api-Token': _method.actions.getBackgroundApiToken() } }).then(res => {
+      actions.setPost(res.data);
+    }).catch(_e => { actions.errorBackendApi(); });
   },
 
   // set state
@@ -110,6 +106,9 @@ const _method = {
   actions: {
     setQueryParameter: (queryParameter) => {
       history.replaceState('', '', queryParameter);
+    },
+    getBackgroundApiToken: () => {
+      return document.getElementById('background-api-toke').dataset.backgroundApiToke;
     }
   }
 }
